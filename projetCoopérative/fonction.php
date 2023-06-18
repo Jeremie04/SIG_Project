@@ -125,7 +125,7 @@
 // Nancy 
 
     function selectArret($mots) {
-        $base = getconnection();
+        $base = connect();
         $request = "SELECT idarret FROM arret WHERE nom LIKE :mots";
         $stmt = $base->prepare($request);
         $stmt->bindValue(':mots', '%' . $mots . '%', PDO::PARAM_STR);
@@ -137,7 +137,7 @@
         return $tab;
     }
     function getArret($mots) {
-        $base = getconnection();
+        $base = connect();
         $request = "SELECT * FROM arret WHERE nom LIKE :mots";
         $stmt = $base->prepare($request);
         $stmt->bindValue(':mots', '%' . $mots . '%', PDO::PARAM_STR);
@@ -149,7 +149,7 @@
         return $tab;
     }
     function getArretBus($idArret){
-        $base = getconnection();
+        $base = connect();
         $request = "SELECT * FROM v_arretBus WHERE arret = %d";
         $request = sprintf($request,$idArret);
         //echo $request;
@@ -159,7 +159,7 @@
         return $tab;
     }
     function getAllNameArret() {
-        $base = getconnection();
+        $base = connect();
         $request = "SELECT * FROM arret";
         $response = $base->query($request);
         $tab = array();
@@ -195,7 +195,7 @@
         return ['latitude' => $latitudePlusProche, 'longitude' => $longitudePlusProche, 'distance' => $distanceMin];
     }
     function getArretProche($latitude,$longitude){
-        $base = getconnection();
+        $base = connect();
         $request = "SELECT * FROM arret WHERE latitude = %d AND longitude = %d";
         $request = sprintf($request,$latitude,$longitude);
         $response = $base->query($request);
@@ -205,4 +205,37 @@
         }
         return $tab;
     }
+
+// Arena 
+
+
+    function getArretByBus($id){
+        $connexion = connect();
+        $sql="SELECT*FROM v_arretBus where ligne=".$id;
+        $resultats=$connexion->query($sql);
+        $resultats->setFetchMode(PDO::FETCH_ASSOC);
+        $rep=array();
+        while( $ligne = $resultats->fetch())
+        {
+            $rep[] =$ligne;
+        }
+        $resultats->closeCursor();
+        return $rep;       
+    }
+
+    function getTrajetByBus($id){
+        $connexion = connect();
+        $sql="SELECT*FROM Trajet where idligne=".$id;
+        $resultats=$connexion->query($sql);
+        $resultats->setFetchMode(PDO::FETCH_ASSOC);
+        $rep=array();
+        while( $ligne = $resultats->fetch())
+        {
+            $rep[] =$ligne;
+        }
+        $resultats->closeCursor();
+        return $rep;       
+    }
+
+
 ?>

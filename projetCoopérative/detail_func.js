@@ -13,7 +13,7 @@ function getxhr(){
 }
 
         
-function getBusStop(carte) {
+function getBusStop(carte, departLong, departLat, arrivLong, arrivLat) {
     arrets = [];
     var xhr = getxhr();
 
@@ -42,10 +42,10 @@ function getBusStop(carte) {
     
     // Configurez la requête
     var formData = new FormData();
-    formData.append('departLong', 47.52427131081365);
-    formData.append('departLat', -18.904737095855467);
-    formData.append('arrivLong', 47.532374287954084);
-    formData.append('arrivLat', -18.987973284390698);
+    formData.append('departLong', departLong);
+    formData.append('departLat', departLat);
+    formData.append('arrivLong', arrivLong);
+    formData.append('arrivLat', arrivLat);
     formData.append('ligne', 1);
     xhr.send(formData);
 }

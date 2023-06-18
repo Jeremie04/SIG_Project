@@ -5,8 +5,8 @@
         $longitude = $_POST['longitude'];
         $arret = getAllNameArret();
         $resultat = getLatitudeLongitude($latitude,$longitude,$arret);
-        //echo json_encode($resultat);
+        echo json_encode($resultat);
     } else {
-        //echo "Erreur : Données de latitude et de longitude manquantes";
+        echo "Erreur : Données de latitude et de longitude manquantes";
     }
 ?>

@@ -13,6 +13,7 @@ function returnData() {
     var dataInput = document.getElementById('searchInput');
     data = dataInput.value;
     console.log('Données renvoyées depuis la fenêtre pop-up : ' + data);
+    getLocation();
     closePopup();
     $.ajax({
         url: 'jsonArretFiltre.php',
@@ -32,6 +33,26 @@ function updateValue(value) {
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        console.log("Latitude: " + latitude);
+        console.log("Longitude: " + longitude);
+
+        $.ajax({
+            url: 'jsonArretProche.php',
+            type: 'POST',
+            data: {
+                latitude: latitude,
+                longitude: longitude
+            },
+            success: function(response) {
+                console.log("Réponse du fichier PHP : " + response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
     } else {
         console.log("La géolocalisation n'est pas prise en charge par ce navigateur.");
     }

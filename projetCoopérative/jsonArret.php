@@ -1,7 +1,5 @@
 <?php
     include("fonction.php");
-    $value = $_GET['query'];
-    //echo $value;
-    $values=getArret($value);
+    $values=getAllNameArret();
     echo json_encode($values);
 ?>

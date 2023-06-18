@@ -1,7 +1,17 @@
+<?php include('header.php'); ?> 
 <?php  
-    include('fonction.php');
-    $listBus = getBusStopsBetween(-18.904737095855467, 47.52427131081365, -18.987973284390698, 47.532374287954084, 1);
-    $distance = getTotalDistance(-18.904737095855467, 47.52427131081365, -18.987973284390698, 47.532374287954084, 1);
+
+/* 
+    $ArretProche = file_get_contents('jsonArretProche.php');
+    $arretProche = json_decode($ArretProche, true);
+    $latitudePlusProche = $arretProche['latitude'];
+    $longitudePlusProche = $arretProche['longitude'];
+    $listBus = getBusStopsBetween($latitudePlusProche, $longitudePlusProche, -18.987973284390698, 47.532374287954084, 1);
+    $distance = getTotalDistance($latitudePlusProche, $longitudePlusProche, -18.987973284390698, 47.532374287954084, 1);
+*/
+
+$listBus = getBusStopsBetween(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 1);
+$distance = getTotalDistance(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 1);
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +36,10 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
             zoom: 15,
         };
         var carte = new google.maps.Map(document.getElementById("carte"), mapOptions); 
-
-
-        getBusStop(carte);
+        returnData();
+        getBusStop(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084);
         getTrajet(carte);
+
     }
 
     google.maps.event.addDomListener(window, 'load', initialize); // chargement de la carte
@@ -38,7 +48,7 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
 
 <body>
     <div class="container">
-        <?php include('header.php'); ?>
+        
 
         <!-- liste d'arrêt -->
         <div class="row">

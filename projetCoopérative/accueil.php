@@ -33,25 +33,33 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
 <body>
     <div class="container">
         <?php include('header.php'); ?>
+
         <!-- liste d'arrêt -->
         <div class="row">
             <div class="option col-md-4">
+                <div id="arret">
+                    <h3 id="h31"></h3>
+                    <h3 id="h32"></h3>
+                </div>
                 <h2>Liste des lignes</h2>
-                <a href="detail.php"><div class="opt">137</div></a>
-                <a href="#"><div class="opt">172</div></a>
-                <a href="#"><div class="opt">187</div></a>
+                <a onclick='arret(1,"Green")'><div class="opt">137</div></a>
+                <a onclick='arret(2,"Blue")'><div class="opt">172</div></a>
+                <a onclick='arret(3,"Red")'><div class="opt">187</div></a>
             </div>
+
+
             <div class="content col-md-8">
                 <div class="carte-content" id="carte">
     
                 </div>
             </div>
         </div>
+
     </div>
 </body>
 
 </html>
 
-<?php include('popup.php'); ?>
-
 <script src="accueil_func.js"></script>
+<script type="text/javascript" src="./arret.js"></script>
+<script type="text/javascript" src="./allArrets.js"></script>
