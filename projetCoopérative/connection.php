@@ -1,7 +1,9 @@
 <?php
    function connect(){
-        $user='finoana';
+        //$user='finoana';
         $pass='mdpprom15';
+        $user = 'jeremie';
+
         $dsn='pgsql:host=localhost;port=5432;dbname=bus';
 
         try {
