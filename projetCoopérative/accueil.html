@@ -13,6 +13,8 @@
 src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'API Maps JavaScript
 </script>
 
+<script type="text/javascript" src="./arret.js"></script>
+
 <script type="text/javascript">
     function initialize() {
         var mapOptions = {
@@ -118,14 +120,21 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
             <h1 id="titre">Grand Titre</h1>
             <a href="popup.html">Choisir une destination</a>
         </div>
+
         <!-- liste d'arrêt -->
         <div class="row">
             <div class="option col-md-4">
+                <div id="arret">
+                    <h3 id="h31"></h3>
+                    <h3 id="h32"></h3>
+                </div>
                 <h2>Liste des lignes</h2>
-                <a href="detail.html"><div class="opt">137</div></a>
-                <a href="#"><div class="opt">172</div></a>
-                <a href="#"><div class="opt">187</div></a>
+                <a onclick='arret(1,"Green")'><div class="opt">137</div></a>
+                <a onclick='arret(2,"Blue")'><div class="opt">172</div></a>
+                <a onclick='arret(3,"Red")'><div class="opt">187</div></a>
             </div>
+
+
             <div class="content col-md-8">
                 <div class="carte-content" id="carte">
     

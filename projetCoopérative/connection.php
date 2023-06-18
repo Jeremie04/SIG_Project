@@ -1,6 +1,6 @@
 <?php
    function connect(){
-        $user='finoana';
+        $user='postgres';
         $pass='mdpprom15';
         $dsn='pgsql:host=localhost;port=5432;dbname=bus';
 
