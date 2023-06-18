@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Champ de recherche avec Selectize.js</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.min.css">
+</head>
+<body>
+    <h2>Recherche d'options :</h2>
+    <input type="text" id="searchInput">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').selectize({
+                options: [
+                    {value: 'option1', text: 'Option 1'},
+                    {value: 'option2', text: 'Option 2'},
+                    {value: 'option3', text: 'Option 3'},
+                    {value: 'option4', text: 'Another option'},
+                    {value: 'option5', text: 'Sample option'},
+                    {value: 'option6', text: 'Example option'}
+                ],
+                labelField: 'text',
+                searchField: 'text',
+                placeholder: 'Votre destination',
+                create: false
+            });
+        });
+    </script>
+</body>
+</html>
