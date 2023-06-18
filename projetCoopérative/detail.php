@@ -36,10 +36,45 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
             zoom: 15,
         };
         var carte = new google.maps.Map(document.getElementById("carte"), mapOptions); 
-        returnData();
-        getBusStop(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084);
-        getTrajet(carte);
+        //returnData();
+        
+        function getData(carte){
+            var xhr = getxhr();
+            xhr.addEventListener("load", function(event) {
+                console.log(xhr.responseText);
+                position = JSON.parse(xhr.responseText);
+                //getBusStop(position.latitude, position.longitude, -18.987973284390698, 47.532374287954084);
+                getBusStop(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084);
+            });
+            
+            // Definissez ce qui se passe en cas d'erreur
+            xhr.addEventListener("error", function(event) {
+                alert('Oups! Quelque chose s\'est mal passé.');
+            });
+            
+            // Configurez la requête
+            xhr.open("POST", "jsonArretProche.php");
+            alert(position.latitude);
 
+            // Les données envoyées sont ce que l'utilisateur a mis dans le formulaire
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+            var formData = new FormData();
+            formData.append('longitude', position.coords.longitude);
+            formData.append('latitude', position.coords.latitude);
+            xhr.send(formData);
+        } 
+        //getData(carte);
+        // 137
+        getBusStop(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 1, "red");
+        getTrajet(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 1, "red");
+
+        // 172
+        getBusStop(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 2, "green");
+        getTrajet(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 2, "green");
+
+        // 187
+        getBusStop(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 3, "blue");
+        getTrajet(carte, -18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 3, "blue");
     }
 
     google.maps.event.addDomListener(window, 'load', initialize); // chargement de la carte
@@ -69,15 +104,15 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
                     </tr>
                     <tr>
                         <td></td>
-                        <td>137</td>
+                        <td><a onclick='getBusAndTrajet(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 1, "red")'>137</a></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>181</td>
+                        <td><a onclick='getBusAndTrajet(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 2, "green")'>172</a></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>172</td>
+                        <td><a onclick='getBusAndTrajet(-18.998045725066667, 47.5358287947198, -18.987973284390698, 47.532374287954084, 3, "blue")'>181</a></td>
                     </tr>
                 </table>
                   

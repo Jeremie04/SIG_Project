@@ -13,7 +13,7 @@ function getxhr(){
 }
 
         
-function getBusStop(carte, departLong, departLat, arrivLong, arrivLat) {
+function getBusStop(carte,  departLat, departLong, arrivLat, arrivLong, line, color) {
     arrets = [];
     var xhr = getxhr();
 
@@ -28,7 +28,14 @@ function getBusStop(carte, departLong, departLat, arrivLong, arrivLat) {
                     text: item.nomarret,
                     color: "white",
                     fontWeight: "bold"
-                }   
+                },
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: color, // Couleur du marqueur (ici, rouge)
+                    fillOpacity: 1,
+                    strokeWeight: 0,
+                    scale: 10
+                  },
             });
         });
     });
@@ -46,12 +53,12 @@ function getBusStop(carte, departLong, departLat, arrivLong, arrivLat) {
     formData.append('departLat', departLat);
     formData.append('arrivLong', arrivLong);
     formData.append('arrivLat', arrivLat);
-    formData.append('ligne', 1);
+    formData.append('ligne', line);
     xhr.send(formData);
 }
 
 
-function getTrajet(carte){
+function getTrajet(carte,  departLat, departLong, arrivLat, arrivLong, line, color){
     var points = []
     var xhr = getxhr();
     xhr.addEventListener("load", function(event) {
@@ -63,7 +70,7 @@ function getTrajet(carte){
         });
         var traceLigne = new google.maps.Polyline({
             path: ligne,
-            strokeColor: "#FF0000",
+            strokeColor: color,
             strokeOpacity: 1.0,
             strokeWeight: 2
         });
@@ -77,10 +84,21 @@ function getTrajet(carte){
     xhr.open("POST", "getTrajet.php");
     // Configurez la requête
     var formData = new FormData();
-    formData.append('departLong', 47.52427131081365);
-    formData.append('departLat', -18.904737095855467);
-    formData.append('arrivLong', 47.532374287954084);
-    formData.append('arrivLat', -18.987973284390698);
-    formData.append('ligne', 1);
+    formData.append('departLong', departLong);
+    formData.append('departLat', departLat);
+    formData.append('arrivLong', arrivLong);
+    formData.append('arrivLat', arrivLat);
+    formData.append('ligne', line);
     xhr.send(formData);
+}
+
+function getBusAndTrajet(  departLat, departLong, arrivLat, arrivLong, line, color){
+    var options = {
+        center: new google.maps.LatLng(departLat , departLong),
+        zoom: 14,
+        mapTypeId:google.maps.MapTypeId.ROADMAP 
+    };
+    var carte = new google.maps.Map(document.getElementById("carte"), options);
+    getBusStop(carte,  departLat, departLong, arrivLat, arrivLong, line, color);
+    getTrajet(carte,  departLat, departLong, arrivLat, arrivLong, line, color);
 }
