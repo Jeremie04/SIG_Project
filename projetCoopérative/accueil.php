@@ -52,5 +52,6 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
 
 </html>
 
+<?php include('popup.php'); ?>
 
 <script src="accueil_func.js"></script>

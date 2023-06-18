@@ -27,41 +27,9 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
         };
         var carte = new google.maps.Map(document.getElementById("carte"), mapOptions); 
 
-        
-        function getBusStop(carte) {
-            var arrets = [];
-            var xhr = getxhr();
 
-            xhr.addEventListener("load", function(event){
-                var listBus = JSON.parse(xhr.responseText);
-                var route = [];
-                listBus.foreach ( bus => {
-                    route.push(new google.maps.LatLng(bus.latitude, bus.longitude));
-                })
-                var traceroute = new google.maps.Polyline({   
-                    path: route,
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 2.0,
-                    strokeWeight: 5
-                });
-                traceroute.setMap(carte);
-            });
-                
-            // Definissez ce qui se passe en cas d'erreur
-            xhr.addEventListener("error", function(event) {
-                alert('Oups! Quelque chose s\'est mal passé.');
-            });
-
-            // Configurez la requête
-            var formData = new formData();
-            formData.append('departLong', 47.52427131081365);
-            formData.append('departLat', -18.904737095855467);
-            formData.append('arrivLong', 47.532374287954084);
-            formData.append('arrivLat', -18.987973284390698);
-            formData.append('ligne', 1);
-            xhr.open("POST", "getDetails.php");
-        }
         getBusStop(carte);
+        getTrajet(carte);
     }
 
     google.maps.event.addDomListener(window, 'load', initialize); // chargement de la carte
@@ -115,4 +83,4 @@ src="https://maps.googleapis.com/maps/api/js?sensor=false"> // chargement de l'A
 </html>
 
 
-<script src="accueil_func.js"></script>
+<script src="detail_func.js"></script>
